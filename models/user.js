@@ -10,7 +10,7 @@ const User = sequelize.define("user", {
     type: DataTypes.STRING,
     allowNull: false,
     set(value) {
-      this.setDataValue("password", bcrypt.hashSync(value));
+      this.setDataValue("password", bcrypt.hashSync(value, 8));
     },
   },
   admin: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false },
