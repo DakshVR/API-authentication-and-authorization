@@ -32,11 +32,11 @@ const createNewUser = async function createNewUser(
       };
     }
     // Create a new user
-    const hashedPassword = await bcrypt.hash(password, 10); // Hash the password
+    // const hashedPassword = await bcrypt.hash(password, 10); // Hash the password
     const newUser = await User.create({
       name,
       email,
-      password: hashedPassword,
+      password,
       admin,
     });
     return newUser;
