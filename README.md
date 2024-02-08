@@ -1,14 +1,14 @@
-## 1. Implement an API endpoint for creating new users
-store the following information for each user:
-  * `id` - The primary key for the user (if you're using MongoDB, it's fine to stick with the default primary key name `_id`)
+## 1. Implemented an API endpoint for creating new users
+It stores the following information for each user:
+  * `id` - The primary key for the user
   * `name` - User's full name
-  * `email` - User's email address (which must be unique among all users)
+  * `email` - User's email address
   * `password` - User's hashed/salted password
   * `admin` - A boolean flag indicating whether the user has administrative permissions (`false` by default)
 
-Hash and salt users passwords before storing them in your database.  
+Hash and salt users' passwords before storing them in your database.  
 
-## 2. Enable JWT-based user logins and implement a user data access endpoint
+## 2. Enabled JWT-based user logins and implement a user data access endpoint
 
 `POST /users/login` API endpoint allows a registered user to log in by sending their email address and password.  If the email/password combination is valid, respond with a JWT token, which the user can then send with future requests to authenticate themselves.  The JWT token payload contains the user's ID (with which we are able to fetch details about the user from the database) and any other information needed and it expires after 24 hours.
 
