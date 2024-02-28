@@ -1,4 +1,5 @@
 const { Router } = require("express");
+const cors = require("cors");
 const { ValidationError } = require("sequelize");
 
 const { Business } = require("../models/business");
@@ -18,6 +19,8 @@ const {
 } = require("../lib/auth");
 
 const router = Router();
+
+router.use(cors());
 
 /*
  * Route to list all of a user's businesses.
@@ -135,15 +138,12 @@ router.post("/", adminUser, async function (req, res, next) {
  * Route to Login for Users.
  */
 router.post("/login", async function (req, res, next) {
-  if (req.body && req.body.id && req.body.email && req.body.password) {
+  if (req.body && req.body.email && req.body.password) {
     try {
-      const authenticated = await validateUser(
-        req.body.id,
-        req.body.email,
-        req.body.password
-      );
-      if (authenticated) {
-        const token = await generateAuthToken(req.body.id);
+      const user = await validateUser(req.body.email, req.body.password);
+
+      if (user) {
+        const token = await generateAuthToken(user.id);
         res.status(200).send({
           token: token,
         });

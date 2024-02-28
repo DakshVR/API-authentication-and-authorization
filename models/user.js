@@ -48,11 +48,25 @@ const createNewUser = async function createNewUser(
 };
 exports.createNewUser = createNewUser;
 
-const getUserById = async function getUserById(id, includePassword) {
+// const getUserById = async function getUserById(id, includePassword) {
+//   try {
+//     const user = await User.findByPk(id, {
+//       attributes: includePassword ? {} : { exclude: ["password"] },
+//     });
+//     if (user) {
+//       return user;
+//     }
+//   } catch (error) {
+//     return {
+//       error: `User with id ${id} does not exist`,
+//     };
+//   }
+// };
+// exports.getUserById = getUserById;
+
+const getUserByEmail = async function getUserByEmail(email) {
   try {
-    const user = await User.findByPk(id, {
-      attributes: includePassword ? {} : { exclude: ["password"] },
-    });
+    const user = await User.findOne({ where: { email } });
     if (user) {
       return user;
     }
@@ -62,15 +76,17 @@ const getUserById = async function getUserById(id, includePassword) {
     };
   }
 };
-exports.getUserById = getUserById;
+exports.getUserByEmail = getUserByEmail;
 
-const validateUser = async function validateUser(id, email, password) {
-  const user = await getUserById(id, true, true);
-  return (
+const validateUser = async function validateUser(email, password) {
+  const user = await getUserByEmail(email);
+  if (
     user &&
     email === user.email &&
     (await bcrypt.compare(password, user.password))
-  );
+  ) {
+    return user;
+  }
 };
 exports.validateUser = validateUser;
 
