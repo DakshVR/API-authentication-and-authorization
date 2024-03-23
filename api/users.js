@@ -141,7 +141,6 @@ router.post("/login", async function (req, res, next) {
   if (req.body && req.body.email && req.body.password) {
     try {
       const user = await validateUser(req.body.email, req.body.password);
-
       if (user) {
         const token = await generateAuthToken(user.id);
         res.status(200).send({
