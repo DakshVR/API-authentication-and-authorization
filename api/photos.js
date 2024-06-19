@@ -1,9 +1,11 @@
 const { Router } = require("express");
+const cors = require("cors");
 const { ValidationError } = require("sequelize");
 
 const { Photo, PhotoClientFields } = require("../models/photo");
 const { requireAuthentication } = require("../lib/auth");
 const router = Router();
+router.use(cors());
 
 /*
  * Route to create a new photo.

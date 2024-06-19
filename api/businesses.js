@@ -1,4 +1,5 @@
 const { Router } = require("express");
+const cors = require("cors");
 const { ValidationError } = require("sequelize");
 
 const { Business, BusinessClientFields } = require("../models/business");
@@ -6,6 +7,7 @@ const { Photo } = require("../models/photo");
 const { Review } = require("../models/review");
 const { requireAuthentication } = require("../lib/auth");
 const router = Router();
+router.use(cors());
 
 /*
  * Route to return a list of businesses.

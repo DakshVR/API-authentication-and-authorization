@@ -1,9 +1,11 @@
 const { Router } = require("express");
+const cors = require("cors");
 const { ValidationError } = require("sequelize");
 
 const { Review, ReviewClientFields } = require("../models/review");
 const { requireAuthentication } = require("../lib/auth");
 const router = Router();
+router.use(cors());
 
 /*
  * Route to create a new review.
